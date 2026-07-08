@@ -1,0 +1,19 @@
+**/*.pptx
+**/*.pdf
+
+# LaTeX build products
+**/*.fdb_latexmk
+**/*.aux
+**/*.fls
+**/*.nav
+**/*.out
+**/*.snm
+**/*.synctex.gz
+**/*.toc
+**/*.xdv
+**/*.log
+
+# Editor and OS files
+**/*.swp
+**/*~
+**/.DS_Store

@@ -1,0 +1,256 @@
+%% NUIST-styled Beamer theme, adapted from the supplied university PPTX.
+%% The package name is retained for compatibility with main.tex.
+\ProvidesPackage{beamerthemeNUIST}[2026/07/07 NUIST Beamer Theme]
+
+\RequirePackage{tikz}
+\RequirePackage{xcolor}
+\RequirePackage{graphicx}
+\RequirePackage{etoolbox}
+\RequirePackage{microtype}
+\RequirePackage[scaled=0.94]{helvet}
+\RequirePackage{iftex}
+\ifXeTeX
+  \RequirePackage{xeCJK}
+  % Chinese body: Song; Chinese headings: Hei.
+  \setCJKmainfont{FandolSong-Regular}
+  \setCJKsansfont[AutoFakeBold=2]{FandolHei-Regular}
+  % Use Times New Roman when available; TeX Gyre Termes is the bundled
+  % Times-compatible fallback used on systems without Microsoft fonts.
+  \IfFontExistsTF{Times New Roman}{%
+    \setmainfont{Times New Roman}%
+    \setsansfont{Times New Roman}%
+  }{%
+    \setmainfont{TeXGyreTermesX-Regular.otf}[
+      BoldFont=TeXGyreTermesX-Bold.otf,
+      ItalicFont=TeXGyreTermesX-Italic.otf,
+      BoldItalicFont=TeXGyreTermesX-BoldItalic.otf]%
+    \setsansfont{TeXGyreTermesX-Regular.otf}[
+      BoldFont=TeXGyreTermesX-Bold.otf,
+      ItalicFont=TeXGyreTermesX-Italic.otf,
+      BoldItalicFont=TeXGyreTermesX-BoldItalic.otf]%
+  }
+\fi
+
+% Brand palette sampled from the PowerPoint master.
+\definecolor{NUISTnavy}     {HTML}{00679C}
+\definecolor{NUISTblue}     {HTML}{00679C}
+\definecolor{NUISTdarkblue} {HTML}{075B89}
+\definecolor{NUISTaccent}   {HTML}{2660AD}
+\definecolor{NUISTgold}     {HTML}{78B8D4}
+\definecolor{NUISTorange}   {HTML}{E97832}
+\definecolor{NUISTlight}    {HTML}{EAF5FA}
+\definecolor{NUISTwhite}    {HTML}{FFFFFF}
+\definecolor{NUISTbglight}  {HTML}{F3F9FC}
+\definecolor{NUISTfooter}   {HTML}{00679C}
+
+% Typography follows the PPT master: clean sans serif, compact titles.
+\usefonttheme{professionalfonts}
+\usefonttheme{default}
+\setbeamerfont{normal text}{family=\rmfamily}
+\setbeamerfont{title}{family=\sffamily,size=\LARGE,series=\bfseries}
+\setbeamerfont{frametitle}{family=\sffamily,size=\Large,series=\bfseries}
+\setbeamerfont{author}{family=\rmfamily,size=\small}
+\setbeamerfont{institute}{family=\rmfamily,size=\footnotesize}
+\setbeamerfont{date}{family=\rmfamily,size=\footnotesize}
+\setbeamerfont{footline}{family=\rmfamily,size=\scriptsize}
+\setbeamerfont{block title}{family=\sffamily,series=\bfseries,size=\small}
+\setbeamerfont{itemize/enumerate body}{family=\rmfamily,size=\footnotesize}
+\setbeamerfont{itemize/enumerate subbody}{family=\rmfamily,size=\scriptsize}
+\setbeamerfont{block body}{family=\rmfamily,size=\footnotesize}
+\setbeamerfont{bibliography item}{family=\rmfamily,size=\footnotesize}
+\setbeamerfont{bibliography entry author}{family=\rmfamily,size=\footnotesize}
+\setbeamerfont{bibliography entry title}{family=\rmfamily,size=\footnotesize}
+\setbeamerfont{bibliography entry location}{family=\rmfamily,size=\footnotesize}
+\setbeamerfont{bibliography entry note}{family=\rmfamily,size=\footnotesize}
+
+\setbeamercolor{structure}{fg=NUISTblue}
+\setbeamercolor{title}{fg=NUISTblue}
+\setbeamercolor{frametitle}{fg=NUISTblue,bg=NUISTwhite}
+\setbeamercolor{normal text}{fg=black!82,bg=NUISTwhite}
+\setbeamercolor{alerted text}{fg=NUISTorange}
+\setbeamercolor{example text}{fg=NUISTaccent}
+\setbeamercolor{block title}{bg=NUISTblue,fg=NUISTwhite}
+\setbeamercolor{block body}{bg=NUISTbglight,fg=black!82}
+\setbeamercolor{block title alerted}{bg=NUISTaccent,fg=NUISTwhite}
+\setbeamercolor{block body alerted}{bg=NUISTlight,fg=black!82}
+\setbeamercolor{itemize item}{fg=NUISTblue}
+\setbeamercolor{itemize subitem}{fg=NUISTaccent}
+\setbeamercolor{itemize subsubitem}{fg=NUISTaccent}
+\setbeamercolor{enumerate item}{fg=NUISTblue}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{headline}{}
+\setbeamertemplate{itemize item}{\raise0.25ex\hbox{\scriptsize$\blacktriangleright$}}
+% Three-level argument hierarchy:
+% level 1 = triangle, level 2 = solid square, level 3 = solid diamond.
+\setbeamertemplate{itemize subitem}{%
+  \raise0.28ex\hbox{\color{NUISTaccent}\rule{0.68ex}{0.68ex}}}
+\setbeamertemplate{itemize subsubitem}{%
+  \raise0.12ex\hbox{\color{NUISTaccent}\scriptsize$\blacklozenge$}}
+% Nested argument text scales down automatically while remaining editable.
+\setbeamerfont{itemize/enumerate body}{size=\normalsize}
+\setbeamerfont{itemize/enumerate subbody}{size=\small}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\footnotesize}
+\setbeamertemplate{enumerate item}{\insertenumlabel.}
+\setbeamersize{text margin left=0.72cm,text margin right=0.72cm}
+
+% Keep long frame titles inside the space before the university wordmark.
+% Short titles retain the normal size; only overlong titles are scaled down.
+\newsavebox{\NUISTFrameTitleBox}
+\newcommand{\NUISTFitFrameTitle}{%
+  \sbox{\NUISTFrameTitleBox}{\Large\bfseries\sffamily\insertframetitle}%
+  \ifdim\wd\NUISTFrameTitleBox>8.80cm
+    \resizebox{8.80cm}{!}{\usebox{\NUISTFrameTitleBox}}%
+  \else
+    \usebox{\NUISTFrameTitleBox}%
+  \fi
+}
+
+% Shared Chinese motto with explicit, even character spacing.
+\newcommand{\NUISTMotto}{%
+  明\hspace{0.42em}德\hspace{0.42em}格\hspace{0.42em}物%
+  \hspace{1.45em}%
+  立\hspace{0.42em}己\hspace{0.42em}达\hspace{0.42em}人%
+}
+
+% Content-page header.  Because this is part of the frametitle template it is
+% absent automatically on the plain title and closing frames.
+\setbeamertemplate{background}{}
+\setbeamertemplate{frametitle}{%
+  \begin{tikzpicture}[remember picture,overlay]
+    % Short vertical brand bar at the left.
+    \fill[NUISTblue]
+      ([xshift=0.63cm,yshift=-0.40cm]current page.north west) rectangle
+      ([xshift=1.02cm,yshift=-1.22cm]current page.north west);
+    % Slide title.
+    \node[anchor=west,text=black]
+      at ([xshift=1.34cm,yshift=-0.80cm]current page.north west)
+      {\NUISTFitFrameTitle};
+    % University wordmark at the right.
+    \node[anchor=east,inner sep=0pt]
+      at ([xshift=-0.63cm,yshift=-0.70cm]current page.north east)
+      {\includegraphics[width=3.55cm]{nuist_wordmark.png}};
+    % Fine rule below the title, ending before the wordmark.
+    \draw[NUISTblue,line width=0.55pt]
+      ([xshift=1.27cm,yshift=-1.22cm]current page.north west) --
+      ([xshift=-4.05cm,yshift=-1.22cm]current page.north east);
+  \end{tikzpicture}%
+  % Reserve the header's vertical space before normal frame content.
+  \vspace*{1.03cm}%
+}
+
+% Per-slide source note.  Plain frames (the title and closing pages) suppress
+% this automatically; ordinary frames show only the citation at bottom right.
+\newcommand{\SlideReference}{}
+\newcommand{\setSlideReference}[1]{\gdef\SlideReference{#1}}
+\newcommand{\ReferenceEntry}[1]{#1\par}
+\setbeamertemplate{footline}{%
+  \begin{tikzpicture}[remember picture,overlay]
+    \node[anchor=south east,inner sep=0pt] at
+      ([xshift=-0.42cm,yshift=0.16cm]current page.south east)
+      {\begin{minipage}{0.92\paperwidth}
+        \raggedleft\fontsize{5.2}{6.1}\selectfont\rmfamily\color{black!78}%
+        \setlength{\parskip}{0.05cm}%
+        \SlideReference
+      \end{minipage}};
+  \end{tikzpicture}%
+  \leavevmode\hbox{\rule{0pt}{0.01cm}}%
+}
+
+% Title page: reproduces the supplied PPTX's watermark and left blue motif.
+\defbeamertemplate*{title page}{NUIST}[1][]{%
+  \begin{tikzpicture}[remember picture,overlay]
+    \fill[white] (current page.south west) rectangle (current page.north east);
+    \node[anchor=center,opacity=.13,inner sep=0pt] at
+      ([xshift=3.40cm,yshift=0cm]current page.center)
+      {\includegraphics[width=9.4cm]{nuist_seal.png}};
+    \fill[NUISTblue] (current page.west) ++(0,-1.35cm) rectangle ++(0.48cm,2.75cm);
+    \fill[NUISTaccent] ([xshift=0.02cm,yshift=1.15cm]current page.west) --
+      ++(0.46cm,0.30cm) -- ++(0,-0.80cm) -- cycle;
+    \fill[NUISTdarkblue] ([xshift=0.02cm,yshift=-0.15cm]current page.west) circle (0.34cm);
+    \node[anchor=north west,inner sep=0pt] at
+      ([xshift=0.90cm,yshift=-0.55cm]current page.north west)
+      {\includegraphics[width=3.55cm]{nuist_wordmark.png}};
+    \node[anchor=south west,text=NUISTblue,font=\scriptsize\sffamily]
+      at ([xshift=0.92cm,yshift=0.46cm]current page.south west)
+      {\NUISTMotto};
+    % Self-flowing paper information block: both titles may contain explicit
+    % \\ breaks and may also wrap naturally without overlapping later fields.
+    \node[anchor=north,inner sep=0pt,text=black]
+      at ([yshift=-2.05cm]current page.north)
+      {\begin{minipage}{15.0cm}
+        \centering
+        {\fontsize{14.5}{18}\selectfont\bfseries\rmfamily\inserttitle\par}
+        \vspace{0.25cm}
+        {\fontsize{13}{17}\selectfont\bfseries\sffamily\chinesetitle\par}
+        \vspace{0.30cm}
+        \begin{minipage}{14.4cm}
+          \centering
+          {\normalsize\bfseries\rmfamily\insertauthor\par}
+          \vspace{0.08cm}
+          {\small\rmfamily\affiliations\par}
+          \ifstrempty{\correspondingauthor}{}{%
+            \vspace{0.10cm}%
+            {\footnotesize\rmfamily\color{black!78}\correspondingauthor\par}%
+          }
+          \ifstrempty{\conferencevenue}{}{%
+            \vspace{0.22cm}%
+            {\large\bfseries\rmfamily\conferencevenue\par}%
+          }
+        \end{minipage}
+      \end{minipage}};
+  \end{tikzpicture}%
+  \null
+}
+
+% Metadata helpers retained for backwards compatibility.
+\newcommand{\paperid}{}
+\newcommand{\setPaperID}[1]{\renewcommand{\paperid}{#1}}
+\newcommand{\chinesetitle}{}
+\newcommand{\setChineseTitle}[1]{\renewcommand{\chinesetitle}{#1}}
+\newcommand{\conferencevenue}{}
+\newcommand{\setConferenceVenue}[1]{\renewcommand{\conferencevenue}{#1}}
+\newcommand{\affiliations}{}
+\newcommand{\setAffiliations}[1]{\renewcommand{\affiliations}{#1}}
+\newcommand{\correspondingauthor}{}
+\newcommand{\setCorrespondingAuthor}[1]{\renewcommand{\correspondingauthor}{#1}}
+
+\newenvironment{methodcols}{\begin{columns}[T]}{\end{columns}}
+\newcommand{\methodcol}[2]{%
+  \begin{column}{0.32\textwidth}\begin{block}{#1}#2\end{block}\end{column}%
+}
+
+\newcommand{\thankyouslide}[1]{%
+  \begin{frame}[plain]
+    \begin{tikzpicture}[remember picture,overlay]
+      \fill[white] (current page.south west) rectangle (current page.north east);
+      % Oversized pale seal at the right, matching the PowerPoint closing page.
+      \node[anchor=center,opacity=.13,inner sep=0pt] at
+        ([xshift=3.40cm,yshift=0cm]current page.center)
+        {\includegraphics[width=9.4cm]{nuist_seal.png}};
+      % University wordmark at upper left.
+      \node[anchor=north west,inner sep=0pt] at
+        ([xshift=0.92cm,yshift=-0.62cm]current page.north west)
+        {\includegraphics[width=3.75cm]{nuist_wordmark.png}};
+      % Same left-side motif as the title page.
+      \fill[NUISTblue]
+        (current page.west) ++(0,-1.35cm) rectangle ++(0.48cm,2.75cm);
+      \fill[NUISTaccent]
+        ([xshift=0.02cm,yshift=1.15cm]current page.west) --
+        ++(0.46cm,0.30cm) -- ++(0,-0.80cm) -- cycle;
+      \fill[NUISTdarkblue]
+        ([xshift=0.02cm,yshift=-0.15cm]current page.west) circle (0.34cm);
+      % Main closing message and date.
+      \node[anchor=center,text=NUISTaccent,font=\fontsize{31}{38}\selectfont\bfseries\sffamily]
+        at ([xshift=-0.10cm,yshift=-0.10cm]current page.center)
+        {#1};
+      \node[anchor=center,text=black,font=\normalsize\sffamily]
+        at ([xshift=0.52cm,yshift=-1.62cm]current page.center)
+        {\insertdate};
+      \node[anchor=south,text=NUISTblue,font=\small\sffamily]
+        at ([yshift=0.32cm]current page.south)
+        {\NUISTMotto};
+    \end{tikzpicture}
+    \null
+  \end{frame}%
+}

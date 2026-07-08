@@ -1,0 +1,539 @@
+% !TeX program = xelatex
+% !TeX encoding = UTF-8
+% ============================================================
+% NUIST BEAMER TEMPLATE — GUIDED PLACEHOLDER EDITION
+% Compile: latexmk -xelatex main.tex
+% ============================================================
+
+\documentclass[aspectratio=169,10pt]{beamer}
+\usepackage{newtxtext}
+\usepackage{newtxmath}
+\usepackage{beamerthemeNUIST}
+\usepackage{amsmath,amssymb,booktabs,multicol,caption,hyperref,array,pifont,ragged2e}
+\usepackage[loadonly]{enumitem}
+
+% Portable relative paths only.  Put presentation images either beside
+% main.tex or in a figures/ subdirectory; never insert an absolute path.
+\graphicspath{{./}{./figures/}}
+
+\hypersetup{colorlinks=true,urlcolor=NUISTaccent,linkcolor=NUISTblue,citecolor=NUISTblue}
+
+% ============================================================
+% CONTENT EDIT ZONE
+% Replace only the values below. Use \\ for an intentional line break.
+% Keep LaTeX special characters escaped: \&, \%, \_, \#, \{, \}.
+% ============================================================
+
+% ============================================================
+% IMPORTANT LAYOUT GUIDE FOR AGENTS AND HUMAN EDITORS
+%
+% 1. Do not rebuild the image columns manually on text-plus-figure slides.
+%    Select the layout by changing the corresponding ...FigureCount value:
+%      1 -> one figure fills the complete image board;
+%      2 -> two figures are stacked vertically;
+%      3 -> three figures occupy three cells of a 2 x 2 grid;
+%      4 -> four figures occupy a complete 2 x 2 grid.
+%
+% 2. Available adaptive boards:
+%      Content slide:  \ContentFigureCount
+%      Results slide:  \ResultFigureCount
+%      Insight slide:  \InsightFigureCount
+%
+% 3. After choosing the count, fill only fields A--D and their captions.
+%    Unused fields are ignored automatically.  Replace a field with an
+%    \includegraphics command using a relative path such as
+%    \includegraphics{figures/result-a.pdf}, or insert a table/chart/TikZ.
+%
+% 4. If more than four visuals are needed, duplicate the most suitable slide
+%    instead of shrinking every visual until it becomes unreadable.
+%
+% 5. Preserve the title page, page header, reference placement, and closing
+%    page styles.  Split dense prose across slides before reducing font size.
+% ============================================================
+
+% --- Cover metadata ---
+\newcommand{\PaperTitleShort}{[INSERT A SHORT RUNNING TITLE]}
+\newcommand{\PaperTitleEnglish}{[INSERT THE FULL ENGLISH PAPER TITLE; USE \\ FOR A GOOD LINE BREAK]}
+\newcommand{\PaperTitleChinese}{[填写中文论文标题；过长时用 \\ 主动换行]}
+\newcommand{\PaperAuthorsShort}{[FIRST AUTHOR et al.]}
+\newcommand{\PaperAuthors}{%
+  [AUTHOR 1]\textsuperscript{1},
+  [ADD OR REMOVE AUTHORS]\textsuperscript{2},
+  [CORRESPONDING AUTHOR]\textsuperscript{1,*}%
+}
+\newcommand{\PaperAffiliations}{%
+  \textsuperscript{1}[AFFILIATION 1]\\
+  \textsuperscript{2}[ADD OR REMOVE AFFILIATIONS]%
+}
+\newcommand{\Correspondence}{[CORRESPONDING EMAIL]}
+\newcommand{\ConferenceVenue}{[CONFERENCE, LOCATION, AND YEAR]}
+\newcommand{\PresentationDate}{\textnormal{[PRESENTATION DATE]}}
+
+% --- Slide titles ---
+\newcommand{\OutlineTitle}{[SHORT OUTLINE TITLE]}
+\newcommand{\IntroductionTitle}{[SHORT INTRODUCTION TITLE]}
+\newcommand{\ContentTitle}{[TITLE THAT SUMMARIZES THIS PAGE]}
+\newcommand{\MethodologyTitle}{[SHORT METHOD TITLE]}
+\newcommand{\ResultsTitle}{[SHORT RESULTS TITLE]}
+\newcommand{\ExperimentsTitle}{[SHORT EXPERIMENT TITLE]}
+\newcommand{\InsightFigureTitle}{[SHORT INSIGHT TITLE]}
+\newcommand{\ConclusionsTitle}{[SHORT CONCLUSION TITLE]}
+
+% --- Outline entries: add or remove \item lines freely ---
+\newcommand{\OutlineItems}{%
+  \item \textnormal{[SECTION 1; ADD OR REMOVE ITEMS TO MATCH THE TALK]}
+  \item \textnormal{[SECTION 2]}
+  \item \textnormal{[SECTION 3]}
+  \item \textnormal{[SECTION 4]}
+}
+
+% --- Introduction content ---
+\newcommand{\IntroLeftHeading}{[NAME THE BACKGROUND OR MOTIVATION THEME]}
+\newcommand{\IntroLeftItems}{%
+  \item \textnormal{[SUMMARIZE THE NECESSARY BACKGROUND]}
+  \item \textnormal{[STATE THE PROBLEM OR MOTIVATION]}
+  \item \textnormal{[EXPLAIN WHY THE PROBLEM MATTERS; ADD OR REMOVE ITEMS]}
+}
+\newcommand{\IntroRightHeading}{[NAME THE RELATED-WORK OR GAP THEME]}
+\newcommand{\IntroRightItems}{%
+  \item \textnormal{[GROUP PRIOR WORK BY IDEA, NOT PAPER-BY-PAPER]}
+  \item \textnormal{[SUMMARIZE THE LIMITATION THAT MOTIVATES THIS WORK]}
+}
+\newcommand{\ResearchGap}{[WRITE ONE SENTENCE CONNECTING THE GAP TO THIS WORK]}
+
+% --- General content slide ---
+% Hierarchical argument syntax (copy into any ...Items command when needed):
+% \item \textnormal{[LEVEL 1 POINT]}
+%   \begin{itemize}
+%     \item \textnormal{[LEVEL 2 POINT]}
+%       \begin{itemize}
+%         \item \textnormal{[LEVEL 3 POINT]}
+%       \end{itemize}
+%   \end{itemize}
+% Level 1 uses a triangle, level 2 a solid square, and level 3 a solid diamond.
+% Nested text sizes are automatically reduced to \small and \footnotesize.
+\newcommand{\ContentItems}{%
+  \item \textnormal{[MAIN CLAIM 1; KEEP ONLY CLAIMS NEEDED ON THIS PAGE]}
+    \begin{itemize}
+      \item \textnormal{[EVIDENCE OR EXPLANATION FOR CLAIM 1]}
+      \item \textnormal{[OPTIONAL SECOND SUPPORTING POINT]}
+        \begin{itemize}
+          \item \textnormal{[OPTIONAL TECHNICAL DETAIL]}
+        \end{itemize}
+    \end{itemize}
+  \item \textnormal{[MAIN CLAIM 2; ADD, REMOVE, OR NEST ITEMS AS NEEDED]}
+    \begin{itemize}
+      \item \textnormal{[EVIDENCE OR EXPLANATION FOR CLAIM 2]}
+    \end{itemize}
+}
+% LAYOUT SWITCH: set this to 1, 2, 3, or 4; do not rebuild the right column.
+% 1 = one full panel; 2 = two panels stacked vertically; 3/4 = a 2 x 2 grid.
+\newcommand{\ContentFigureCount}{1}
+\newcommand{\ContentFigureA}{[INSERT FIGURE / CHART / TABLE / DIAGRAM A]}
+\newcommand{\ContentFigureB}{[INSERT FIGURE / CHART / TABLE / DIAGRAM B]}
+\newcommand{\ContentFigureC}{[INSERT FIGURE / CHART / TABLE / DIAGRAM C]}
+\newcommand{\ContentFigureD}{[INSERT FIGURE / CHART / TABLE / DIAGRAM D]}
+\newcommand{\ContentFigureCaptionA}{[(a) EXPLAIN THE VISUAL'S TAKEAWAY]}
+\newcommand{\ContentFigureCaptionB}{[(b) EXPLAIN THE VISUAL'S TAKEAWAY]}
+\newcommand{\ContentFigureCaptionC}{[(c) EXPLAIN THE VISUAL'S TAKEAWAY]}
+\newcommand{\ContentFigureCaptionD}{[(d) EXPLAIN THE VISUAL'S TAKEAWAY]}
+
+% width, panel height, panel content, caption
+\newcommand{\ContentFigurePanel}[4]{%
+  \begin{minipage}[t]{#1}
+    \begin{beamercolorbox}[wd=\linewidth,rounded=true,sep=3pt,center]{block body}
+      \begin{minipage}[c][#2][c]{0.94\linewidth}
+        \centering\textit{\scriptsize #3}
+      \end{minipage}
+    \end{beamercolorbox}
+    \vspace{0.10em}{\scriptsize\centering\textit{#4}\par}
+  \end{minipage}%
+}
+
+% count, contents A--D, captions A--D
+\newcommand{\AdaptiveFigureBoard}[9]{%
+  \ifcase#1
+    \ContentFigurePanel{\linewidth}{4.05cm}{[SET FIGURE COUNT TO 1--4]}{}%
+  \or
+    \ContentFigurePanel{\linewidth}{4.05cm}{#2}{#6}%
+  \or
+    \ContentFigurePanel{\linewidth}{1.65cm}{#2}{#6}%
+    \par\vspace{0.22cm}
+    \ContentFigurePanel{\linewidth}{1.65cm}{#3}{#7}%
+  \or
+    \ContentFigurePanel{0.48\linewidth}{1.45cm}{#2}{#6}\hfill
+    \ContentFigurePanel{0.48\linewidth}{1.45cm}{#3}{#7}%
+    \par\vspace{0.22cm}
+    \ContentFigurePanel{0.48\linewidth}{1.45cm}{#4}{#8}%
+  \else
+    \ContentFigurePanel{0.48\linewidth}{1.45cm}{#2}{#6}\hfill
+    \ContentFigurePanel{0.48\linewidth}{1.45cm}{#3}{#7}%
+    \par\vspace{0.22cm}
+    \ContentFigurePanel{0.48\linewidth}{1.45cm}{#4}{#8}\hfill
+    \ContentFigurePanel{0.48\linewidth}{1.45cm}{#5}{#9}%
+  \fi
+}
+\newcommand{\ContentFigureBoard}{%
+  \AdaptiveFigureBoard{\ContentFigureCount}%
+    {\ContentFigureA}{\ContentFigureB}{\ContentFigureC}{\ContentFigureD}%
+    {\ContentFigureCaptionA}{\ContentFigureCaptionB}{\ContentFigureCaptionC}{\ContentFigureCaptionD}}
+
+% Compact variant for a board placed below a text block.
+\newcommand{\CompactAdaptiveFigureBoard}[9]{%
+  \ifcase#1
+    \ContentFigurePanel{\linewidth}{2.65cm}{[SET FIGURE COUNT TO 1--4]}{}%
+  \or
+    \ContentFigurePanel{\linewidth}{2.65cm}{#2}{#6}%
+  \or
+    \ContentFigurePanel{\linewidth}{1.02cm}{#2}{#6}%
+    \par\vspace{0.14cm}
+    \ContentFigurePanel{\linewidth}{1.02cm}{#3}{#7}%
+  \or
+    \ContentFigurePanel{0.48\linewidth}{0.92cm}{#2}{#6}\hfill
+    \ContentFigurePanel{0.48\linewidth}{0.92cm}{#3}{#7}%
+    \par\vspace{0.14cm}
+    \ContentFigurePanel{0.48\linewidth}{0.92cm}{#4}{#8}%
+  \else
+    \ContentFigurePanel{0.48\linewidth}{0.92cm}{#2}{#6}\hfill
+    \ContentFigurePanel{0.48\linewidth}{0.92cm}{#3}{#7}%
+    \par\vspace{0.14cm}
+    \ContentFigurePanel{0.48\linewidth}{0.92cm}{#4}{#8}\hfill
+    \ContentFigurePanel{0.48\linewidth}{0.92cm}{#5}{#9}%
+  \fi
+}
+
+% --- Methodology ---
+\newcommand{\MethodOneTitle}{[METHOD STAGE 1]}
+\newcommand{\MethodOneItems}{\item \textnormal{[INPUT, OPERATION, OR ASSUMPTION]}\item \textnormal{[OUTPUT OR PURPOSE]}}
+\newcommand{\MethodTwoTitle}{[METHOD STAGE 2]}
+\newcommand{\MethodTwoItems}{\item \textnormal{[INPUT, OPERATION, OR ASSUMPTION]}\item \textnormal{[OUTPUT OR PURPOSE]}}
+\newcommand{\MethodThreeTitle}{[METHOD STAGE 3]}
+\newcommand{\MethodThreeItems}{\item \textnormal{[INPUT, OPERATION, OR ASSUMPTION]}\item \textnormal{[OUTPUT OR PURPOSE]}}
+\newcommand{\MethodFigurePlaceholder}{[INSERT A PIPELINE, ALGORITHM, EQUATION, OR SCHEMATIC; ALTER COLUMN COUNT IF NEEDED]}
+
+% --- Results ---
+% LAYOUT SWITCH: set ResultFigureCount to 1--4 before filling fields A--D.
+\newcommand{\ResultFigureCount}{1}
+\newcommand{\ResultFigureA}{[INSERT RESULT FIGURE / CHART / TABLE A]}
+\newcommand{\ResultFigureB}{[INSERT RESULT FIGURE / CHART / TABLE B]}
+\newcommand{\ResultFigureC}{[INSERT RESULT FIGURE / CHART / TABLE C]}
+\newcommand{\ResultFigureD}{[INSERT RESULT FIGURE / CHART / TABLE D]}
+\newcommand{\ResultFigureCaptionA}{[(a) STATE THE RESULT AND SETTING]}
+\newcommand{\ResultFigureCaptionB}{[(b) STATE THE RESULT AND SETTING]}
+\newcommand{\ResultFigureCaptionC}{[(c) STATE THE RESULT AND SETTING]}
+\newcommand{\ResultFigureCaptionD}{[(d) STATE THE RESULT AND SETTING]}
+\newcommand{\ResultFigureBoard}{%
+  \AdaptiveFigureBoard{\ResultFigureCount}%
+    {\ResultFigureA}{\ResultFigureB}{\ResultFigureC}{\ResultFigureD}%
+    {\ResultFigureCaptionA}{\ResultFigureCaptionB}{\ResultFigureCaptionC}{\ResultFigureCaptionD}}
+\newcommand{\ResultBlockHeading}{[SHORT OBSERVATION HEADING]}
+\newcommand{\ResultItems}{%
+  \item \textnormal{[REPORT THE MOST IMPORTANT RESULT]}
+    \begin{itemize}
+      \item \textnormal{[GIVE A NUMBER, TREND, OR COMPARISON AS SUPPORT]}
+    \end{itemize}
+  \item \textnormal{[REPORT A SECOND RESULT ONLY IF IT ADDS A NEW INSIGHT]}
+    \begin{itemize}
+      \item \textnormal{[INTERPRET WHY THE RESULT OCCURS OR COMPARE WITH A BASELINE]}
+    \end{itemize}
+}
+
+% --- Viewpoints/conclusions above, figures below ---
+\newcommand{\InsightFigureItems}{%
+  \item \textnormal{[WRITE THE CLAIM SUPPORTED BY THE FIGURES BELOW]}
+  \item \textnormal{[ADD ONLY THE CONTEXT NEEDED TO READ THE FIGURES]}
+  \item \textnormal{[ADD, REMOVE, OR NEST ITEMS; SPLIT THE PAGE IF CROWDED]}
+}
+% LAYOUT SWITCH: set InsightFigureCount to 1--4 before filling fields A--D.
+\newcommand{\InsightFigureCount}{2}
+\newcommand{\InsightFigureA}{[INSERT SUPPORTING FIGURE / CHART / TABLE A]}
+\newcommand{\InsightFigureB}{[INSERT SUPPORTING FIGURE / CHART / TABLE B]}
+\newcommand{\InsightFigureC}{[INSERT SUPPORTING FIGURE / CHART / TABLE C]}
+\newcommand{\InsightFigureD}{[INSERT SUPPORTING FIGURE / CHART / TABLE D]}
+\newcommand{\InsightFigureCaptionA}{[(a) STATE WHAT TO NOTICE]}
+\newcommand{\InsightFigureCaptionB}{[(b) STATE WHAT TO NOTICE]}
+\newcommand{\InsightFigureCaptionC}{[(c) STATE WHAT TO NOTICE]}
+\newcommand{\InsightFigureCaptionD}{[(d) STATE WHAT TO NOTICE]}
+\newcommand{\InsightFigureBoard}{%
+  \CompactAdaptiveFigureBoard{\InsightFigureCount}%
+    {\InsightFigureA}{\InsightFigureB}{\InsightFigureC}{\InsightFigureD}%
+    {\InsightFigureCaptionA}{\InsightFigureCaptionB}{\InsightFigureCaptionC}{\InsightFigureCaptionD}}
+
+% --- Pure experimental figure pages ---
+\newcommand{\ExperimentTwoFigureContent}{%
+  \vspace{2.05cm}\textit{\small[INSERT ONE OF TWO COMPARABLE FIGURES OR TABLES]}\vspace{2.05cm}}
+\newcommand{\ExperimentThreeFigureContent}{%
+  \vspace{1.85cm}\textit{\scriptsize[INSERT ONE OF THREE MATCHED PANELS]}\vspace{1.85cm}}
+\newcommand{\ExperimentFourFigureContent}{%
+  \vspace{0.72cm}\textit{\scriptsize[INSERT ONE PANEL OF A 2 BY 2 COMPARISON]}\vspace{0.72cm}}
+\newcommand{\ExperimentTwoHeading}{[NAME THE TWO-PANEL COMPARISON]}
+\newcommand{\ExperimentThreeHeading}{[NAME THE THREE-PANEL COMPARISON]}
+\newcommand{\ExperimentFourHeading}{[NAME THE FOUR-PANEL COMPARISON]}
+\newcommand{\ExperimentSubheading}[1]{%
+  {\large\bfseries
+    {\setlength{\fboxsep}{0pt}\color{NUISTaccent}%
+      \fbox{\rule{0pt}{1.05ex}\rule{1.05ex}{0pt}}}%
+    \hspace{0.55em}#1\par}%
+  \vspace{0.55em}%
+}
+\newcommand{\ExperimentTwoCaptionA}{[(a) CONDITION / DATASET / METHOD]}
+\newcommand{\ExperimentTwoCaptionB}{[(b) CONDITION / DATASET / METHOD]}
+\newcommand{\ExperimentThreeCaptionA}{[(a) CONDITION / DATASET / METHOD]}
+\newcommand{\ExperimentThreeCaptionB}{[(b) CONDITION / DATASET / METHOD]}
+\newcommand{\ExperimentThreeCaptionC}{[(c) CONDITION / DATASET / METHOD]}
+\newcommand{\ExperimentFourCaptionA}{[(a) CONDITION / DATASET / METHOD]}
+\newcommand{\ExperimentFourCaptionB}{[(b) CONDITION / DATASET / METHOD]}
+\newcommand{\ExperimentFourCaptionC}{[(c) CONDITION / DATASET / METHOD]}
+\newcommand{\ExperimentFourCaptionD}{[(d) CONDITION / DATASET / METHOD]}
+
+% --- Conclusions ---
+\newcommand{\ConclusionItems}{%
+  \item \textnormal{[ONE SENTENCE ANSWERING THE MAIN RESEARCH QUESTION]}
+  \item \textnormal{[ONE SENTENCE ON THE STRONGEST EVIDENCE OR CONTRIBUTION]}
+  \item \textnormal{[OPTIONAL LIMITATION OR PRACTICAL IMPLICATION; ADD OR REMOVE ITEMS]}
+}
+\newcommand{\FutureWorkHeading}{[SHORT FUTURE-WORK HEADING]}
+\newcommand{\FutureWorkItems}{%
+  \item \textnormal{[SPECIFIC NEXT STEP MOTIVATED BY A CURRENT LIMITATION]}
+  \item \textnormal{[OPTIONAL SECOND DIRECTION; ADD OR REMOVE ITEMS]}
+}
+
+% --- Per-slide references (bottom-right, stacking upward) ---
+% Add or remove \ReferenceEntry{...} lines as needed on each slide.
+\newcommand{\OutlineReference}{%
+  \ReferenceEntry{[CITE A SOURCE ONLY IF THIS SLIDE USES ONE; OTHERWISE REMOVE THIS ENTRY]}%
+}
+\newcommand{\IntroductionReference}{%
+  \ReferenceEntry{[SOURCE 1 — AUTHORS, TITLE, VENUE, YEAR]}%
+  \ReferenceEntry{[OPTIONAL SOURCE 2 — ADD OR REMOVE ENTRIES AS NEEDED]}%
+}
+\newcommand{\ContentReference}{%
+  \ReferenceEntry{[SOURCE 1 — AUTHORS, TITLE, VENUE, YEAR]}%
+  \ReferenceEntry{[OPTIONAL SOURCE 2 — ADD OR REMOVE ENTRIES AS NEEDED]}%
+}
+\newcommand{\MethodologyReference}{%
+  \ReferenceEntry{[CITE THE METHOD OR COMPONENT SOURCE; ADD ENTRIES IF NEEDED]}%
+}
+\newcommand{\ResultsOneReference}{%
+  \ReferenceEntry{[CITE DATASETS, BASELINES, OR METRICS USED ON THIS SLIDE]}%
+}
+\newcommand{\InsightFigureReference}{%
+  \ReferenceEntry{[CITE THE SOURCE OF EACH NON-ORIGINAL CLAIM OR VISUAL]}%
+}
+\newcommand{\ConclusionsReference}{%
+  \ReferenceEntry{[USUALLY REMOVE REFERENCES HERE; KEEP ONLY IF A CLAIM REQUIRES ONE]}%
+}
+
+% --- Closing page ---
+% The closing page intentionally keeps the original fixed wording/layout.
+\newcommand{\ClosingTitle}{感谢指导！}
+
+% Connect cover placeholders to Beamer/theme metadata.
+\title[\PaperTitleShort]{\PaperTitleEnglish}
+\setChineseTitle{\PaperTitleChinese}
+\author[\PaperAuthorsShort]{\PaperAuthors}
+\setAffiliations{\PaperAffiliations}
+\setCorrespondingAuthor{\Correspondence}
+\setConferenceVenue{\ConferenceVenue}
+\setPaperID{}
+\date{\PresentationDate}
+
+% ============================================================
+% LAYOUT ZONE — normally do not edit below this line
+% ============================================================
+\begin{document}
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+\begin{frame}[t]{\OutlineTitle}
+  \setSlideReference{\OutlineReference}
+  \begin{columns}[T]
+    \begin{column}{0.55\textwidth}
+      \setbeamerfont{enumerate item}{size=\large}
+      \begin{enumerate}
+        \setlength{\itemsep}{1.20em}
+        \large\OutlineItems
+      \end{enumerate}
+    \end{column}
+    \begin{column}{0.42\textwidth}
+      % Optionally insert a thematic image here.
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[t]{\IntroductionTitle}
+  \setSlideReference{\IntroductionReference}
+  \begin{columns}[T]
+    \begin{column}{0.52\textwidth}
+      \begin{block}{\IntroLeftHeading}
+        \begin{itemize}\IntroLeftItems\end{itemize}
+      \end{block}
+    \end{column}
+    \begin{column}{0.45\textwidth}
+      \begin{block}{\IntroRightHeading}
+        \begin{itemize}\IntroRightItems\end{itemize}
+        \vspace{0.5em}
+        \textbf{\textcolor{NUISTorange}{[GAP]:}}
+        \textit{\ResearchGap}
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[t]{\ContentTitle}
+  \setSlideReference{\ContentReference}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.52\textwidth}
+      \begin{itemize}
+        \ContentItems
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.44\textwidth}
+      \ContentFigureBoard
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[t]{\MethodologyTitle}
+  \setSlideReference{\MethodologyReference}
+  \begin{methodcols}
+    \methodcol{\ding{202}~\MethodOneTitle}{\begin{itemize}\MethodOneItems\end{itemize}}
+    \methodcol{\ding{203}~\MethodTwoTitle}{\begin{itemize}\MethodTwoItems\end{itemize}}
+    \methodcol{\ding{204}~\MethodThreeTitle}{\begin{itemize}\MethodThreeItems\end{itemize}}
+  \end{methodcols}
+  \vspace{0.4em}
+  \begin{center}
+    \begin{beamercolorbox}[wd=0.65\textwidth,rounded=true,sep=5pt,center]{block body}
+      \textit{\small\MethodFigurePlaceholder}
+    \end{beamercolorbox}
+  \end{center}
+\end{frame}
+
+\begin{frame}[t]{\ResultsTitle}
+  \setSlideReference{\ResultsOneReference}
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \ResultFigureBoard
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \begin{block}{\ResultBlockHeading}
+        \begin{itemize}\ResultItems\end{itemize}
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% Viewpoints or conclusions above, two supporting figures below.
+\begin{frame}[t]{\InsightFigureTitle}
+  \setSlideReference{\InsightFigureReference}
+  \begin{itemize}
+    \setlength{\itemsep}{0.30em}
+    \InsightFigureItems
+  \end{itemize}
+  \vspace{0.35em}
+  \InsightFigureBoard
+\end{frame}
+
+% Pure experiment page: two figures side by side.
+\begin{frame}[t]{\ExperimentsTitle}
+  \setSlideReference{}
+  \ExperimentSubheading{\ExperimentTwoHeading}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.48\textwidth}
+      \begin{beamercolorbox}[wd=\linewidth,rounded=true,sep=5pt,center]{block body}
+        \ExperimentTwoFigureContent
+      \end{beamercolorbox}
+      \vspace{0.3em}{\footnotesize\centering\textit{\ExperimentTwoCaptionA}\par}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \begin{beamercolorbox}[wd=\linewidth,rounded=true,sep=5pt,center]{block body}
+        \ExperimentTwoFigureContent
+      \end{beamercolorbox}
+      \vspace{0.3em}{\footnotesize\centering\textit{\ExperimentTwoCaptionB}\par}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% Pure experiment page: three figures in one row.
+\begin{frame}[t]{\ExperimentsTitle}
+  \setSlideReference{}
+  \ExperimentSubheading{\ExperimentThreeHeading}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.315\textwidth}
+      \begin{beamercolorbox}[wd=\linewidth,rounded=true,sep=4pt,center]{block body}
+        \ExperimentThreeFigureContent
+      \end{beamercolorbox}
+      \vspace{0.3em}{\scriptsize\centering\textit{\ExperimentThreeCaptionA}\par}
+    \end{column}
+    \begin{column}{0.315\textwidth}
+      \begin{beamercolorbox}[wd=\linewidth,rounded=true,sep=4pt,center]{block body}
+        \ExperimentThreeFigureContent
+      \end{beamercolorbox}
+      \vspace{0.3em}{\scriptsize\centering\textit{\ExperimentThreeCaptionB}\par}
+    \end{column}
+    \begin{column}{0.315\textwidth}
+      \begin{beamercolorbox}[wd=\linewidth,rounded=true,sep=4pt,center]{block body}
+        \ExperimentThreeFigureContent
+      \end{beamercolorbox}
+      \vspace{0.3em}{\scriptsize\centering\textit{\ExperimentThreeCaptionC}\par}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% Pure experiment page: four figures in a 2 x 2 grid.
+\begin{frame}[t]{\ExperimentsTitle}
+  \setSlideReference{}
+  \ExperimentSubheading{\ExperimentFourHeading}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.48\textwidth}
+      \begin{beamercolorbox}[wd=\linewidth,rounded=true,sep=3pt,center]{block body}
+        \ExperimentFourFigureContent
+      \end{beamercolorbox}
+      \vspace{0.15em}{\scriptsize\centering\textit{\ExperimentFourCaptionA}\par}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \begin{beamercolorbox}[wd=\linewidth,rounded=true,sep=3pt,center]{block body}
+        \ExperimentFourFigureContent
+      \end{beamercolorbox}
+      \vspace{0.15em}{\scriptsize\centering\textit{\ExperimentFourCaptionB}\par}
+    \end{column}
+  \end{columns}
+  \vspace{0.28cm}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.48\textwidth}
+      \begin{beamercolorbox}[wd=\linewidth,rounded=true,sep=3pt,center]{block body}
+        \ExperimentFourFigureContent
+      \end{beamercolorbox}
+      \vspace{0.15em}{\scriptsize\centering\textit{\ExperimentFourCaptionC}\par}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \begin{beamercolorbox}[wd=\linewidth,rounded=true,sep=3pt,center]{block body}
+        \ExperimentFourFigureContent
+      \end{beamercolorbox}
+      \vspace{0.15em}{\scriptsize\centering\textit{\ExperimentFourCaptionD}\par}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[t]{\ConclusionsTitle}
+  \setSlideReference{\ConclusionsReference}
+  \footnotesize
+  \begin{itemize}
+    \setlength{\itemsep}{0.5em}
+    \ConclusionItems
+  \end{itemize}
+  \vspace{1em}
+  \begin{beamercolorbox}[wd=\textwidth,rounded=true,sep=7pt]{block body alerted}
+    \textbf{\textcolor{NUISTnavy}{\FutureWorkHeading:}}
+    \begin{itemize}
+      \setlength{\itemsep}{0.25em}
+      \FutureWorkItems
+    \end{itemize}
+  \end{beamercolorbox}
+\end{frame}
+
+\thankyouslide{\ClosingTitle}
+
+\end{document}
